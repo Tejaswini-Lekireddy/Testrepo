@@ -1,0 +1,65 @@
+<!-- user-login-form.component.html -->
+
+<div class="background" [ngClass]="{'disable-interaction': disableBackgroundInteraction}">
+  <div class="header1">
+    <div class="left-buttons">
+      <div class="image-container">
+        <!-- <div class="vote-logo">
+          <img src="https://cdn-icons-png.flaticon.com/128/5448/5448927.png" height="70px"/>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loginSuccess" class="success-message">
+    Login successful! Redirecting...
+  </div>
+  <div class="content">
+    <div class="welcome-text">
+        <div class="small-welcome">Welcome</div>
+        <div class="main-welcome">Online Voting System</div>
+    </div>
+    <div class="quote">"Your vote, your voice. Make it count."</div>
+    <button class="vote-here" [ngClass]="{'active-button': activeButton === 'user'}" [disabled]="showUserLoginForm"
+      (click)="toggleUserLoginForm()">
+      Login Now
+    </button>
+  </div>
+  <div *ngIf="error === 'Voting polls are not yet started.'" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="error === 'Voting polls are closed.'" class="error-message">
+    {{ error }}
+  </div>
+  <!-- <div *ngIf="showUserLoginForm && !loginSuccess" class="modal-overlay" (click)="closeLoginForm()"></div> -->
+  <div *ngIf="showUserLoginForm && !loginSuccess && error !== 'Voting polls are not yet started.' && error !== 'Voting polls are closed.'" class="login-forms">
+  <div class="login-forms" *ngIf="showUserLoginForm && !loginSuccess">
+    <div class="login-container">
+      <button class="close-button" (click)="closeLoginForm()">X</button>
+      <h2 class="voterLogin">Sign In!</h2>
+      <form>
+        <div class="form-group">
+          <label for="voterId" class="login-voter-label">Voter ID</label>
+          <input type="text" id="voterId" name="voterId" class="login-input" [(ngModel)]="voterId" required>
+        </div>
+        <div class="form-group">
+          <label for="voterName" class="login-voter-label">Voter Name</label>
+          <input type="text" id="voterName" name="voterName" class="login-input" [(ngModel)]="voterName" required>
+          <div *ngIf="error === 'Please fill in both fields.' && (!voterId || !voterName)" class="error-message">
+            {{ error }}
+          </div>
+          
+         
+
+          <div *ngIf="error === 'Invalid credentials. Please try again.'" class="error-message">
+            {{ error }}
+          </div>
+        </div>
+      </form>
+      <button type="button" class="login" (click)="login()">Login Now</button>
+    </div>
+  </div>
+
+  <!-- Other content... -->
+</div>
+<!-- <router-outlet  *ngIf="isLoggedIn"></router-outlet> Show only if logged in -->
